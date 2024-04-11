@@ -1,0 +1,95 @@
+<html>
+<head>
+ <meta charset="utf-8" />
+ <meta name="viewport" content="initial-scale=1,maximum-scale=1,user-scalable=no"/>
+ <title>ChrisChen0327</title>
+ <style> 
+    html, body, #viewDiv {
+        padding: 0; margin: 0; height: 100%; width: 100%;
+    }
+    footer {
+        position: fixed;
+        bottom: 0;
+        width: 100%;
+        background-color: rgba(255, 255, 255, 0.8);
+        text-align: center;
+        padding: 10px;
+        font-size: 12px;
+        color: #555;
+    }
+ </style>
+<link rel="stylesheet" href="https://js.arcgis.com/4.29/esri/themes/light/main.css"/>
+<script src="https://js.arcgis.com/4.29/"></script>
+ <script>
+ require(["esri/Map", "esri/layers/TileLayer", "esri/layers/GeoJSONLayer", "esri/views/MapView", "esri/layers/FeatureLayer", 'esri/widgets/Legend'], function(Map, TileLayer, GeoJSONLayer, MapView, FeatureLayer, Legend) {
+    // Base map variable
+    var thebasemap = new TileLayer({url:"https://gisext.lincoln.ne.gov/arcgis/rest/services/GIS/LancoBasemap/MapServer/"});
+
+    // Renderer variable
+    const renderer = {
+        type: "simple", 
+        field: "CNTASSDVAL", 
+        legendOptions: {title: "Assessed values in Lincoln"},
+        symbol: {type: "simple-marker", color: "red", outline: {color: "white"}},
+        visualVariables:[{
+            type: "size",
+            field: "CNTASSDVAL", 
+            stops: [
+                {value: 100000, size: "7px", label: "low"},
+                {value: 500000, size: "17px", label: "medium"},
+                {value: 1000000, size: "26px", label: "high"}
+            ]
+        }]
+    };
+
+    // GeoJSON URL
+    const url = "https://rcshepard.github.io/downtownlincoln.geojson";
+
+    // GeoJSON layer variable
+    const geojsonLayer = new GeoJSONLayer({
+        url: url,
+        copyright: "Rob Shepard",
+        renderer: renderer
+    });
+
+    // FeatureLayer URL variable
+    var featureLayer = new FeatureLayer({
+        url:"https://gisext.lincoln.ne.gov/arcgis/rest/services/Parks/Park_Boundaries/MapServer/0"
+    });
+	
+	var featureLayer_1 = new FeatureLayer({
+        url:"https://gis.lincoln.ne.gov/public/rest/services/Planning/Streets/MapServer/0/query?outFields=*&where=1%3D1&f=geojson"
+    });
+
+    // Map variable referencing layers
+    var map = new Map({layers: [thebasemap, geojsonLayer]});
+
+    // View variable referencing map
+    var view = new MapView({
+        container: "viewDiv", 
+        map: map, 
+        zoom: 16, 
+        center: [-96.68, 40.81]
+    });
+
+    // Add FeatureLayer
+    map.add(featureLayer);
+	map.add(featureLayer_1);
+
+    // Legend
+    const legend = new Legend({
+        view: view,
+        layerInfos: [{layer: geojsonLayer, title: "Assignment 4 Symbols"}]
+    });
+    view.ui.add(legend, "bottom-right");
+ });
+ </script>
+ </head>
+ <body>
+ <div id="viewDiv"></div>
+ <footer>&copy; 2024 Chris Chen</footer>
+ </body>
+</html>
+
+
+ 
