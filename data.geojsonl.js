@@ -1286,4 +1286,4 @@ var yourDataVariable ={
 { "type": "Feature", "properties": { "name": "Opera House", "latitude": 41.580281, "longitude": -92.374907, "time": "12\/15\/1908" }, "geometry": null }
 { "type": "Feature", "properties": { "name": "Opera House", "latitude": 41.580281, "longitude": -92.374907, "time": "12\/16\/1908" }, "geometry": null }
 { "type": "Feature", "properties": { "name": "Opera House", "latitude": 41.178903, "longitude": -92.251849, "time": "12\/17\/1908" }, "geometry": null }
-{ "type": "Feature", "properties": { "name": "Opera House", "latitude": 41.198372, "longitude": -92.093089, "time": "12\/18\/1908" }, "geometry": null }]
+{ "type": "Feature", "properties": { "name": "Opera House", "latitude": 41.198372, "longitude": -92.093089, "time": "12\/18\/1908" }, "geometry": null }]}
