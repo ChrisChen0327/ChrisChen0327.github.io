@@ -81,21 +81,21 @@
             }
         };
 
-        var firstLayer = L.geoJson(yourDataVariable, {
+        var firstLayer = L.geoJson(data, {
             onEachFeature: onEachFeature,
             pointToLayer: function(feature, latlng) {
                 return L.circleMarker(latlng, blueCircleMarkers);
             }
         }).addTo(map);
 
-        var timelineLayer = L.geoJson(yourDataVariable, {
+        var timelineLayer = L.geoJson(data, {
             onEachFeature: onEachFeature,
             pointToLayer: function(feature, latlng) {
                 return L.circleMarker(latlng, orangeCircleMarkers);
             }
         });
 
-        var searchLayer = L.geoJson(yourDataVariable, {
+        var searchLayer = L.geoJson(data, {
             onEachFeature: onEachFeature,
             pointToLayer: function(feature, latlng) {
                 return L.circleMarker(latlng, greenCircleMarkers);
@@ -134,7 +134,7 @@
 
         var searchControl = L.control.fuseSearch(searchOptions);
         map.addControl(searchControl);
-        searchControl.indexFeatures(yourDataVariable, ['LNAME']);
+        searchControl.indexFeatures(data, ['LNAME']);
 
         L.control.layers({
             "People": firstLayer
