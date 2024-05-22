@@ -15,7 +15,6 @@
     <script src="https://code.jquery.com/ui/1.9.2/jquery-ui.js"></script>
     <link rel="stylesheet" href="https://code.jquery.com/ui/1.9.2/themes/base/jquery-ui.css" type="text/css">
     <script src="https://dsps.lib.uiowa.edu/placing/public/jqueryUiTouchPunch-0.2.2/jquery.ui.touch-punch.min.js"></script>
-    <script src="https://chrischen0327.github.io/briton_data_lab8.geojson"></script>
 
     <link rel="stylesheet" type="text/css" href="https://dsps.lib.uiowa.edu/placing/css/style.css">
     <link rel="stylesheet" type="text/css" href="https://dsps.lib.uiowa.edu/placing/css/navwrap.css">
@@ -81,15 +80,9 @@
         fillOpacity: 0.7
     };
 
-    var myIcon = L.icon({
-        iconUrl: 'my-icon.png',
-        iconRetinaUrl: 'my-icon@2x.png',
-        iconSize: [25, 41],
-        iconAnchor: [12, 41],
-        popupAnchor: [1, -34]
-    });
-
     $.getJSON('https://chrischen0327.github.io/briton_data_lab8.geojson', function(data) {
+        console.log("Data loaded:", data); // Debugging line
+
         var firstLayer = L.geoJson(data, {
             onEachFeature: onEachFeature,
             pointToLayer: function(feature, latlng) {
@@ -130,7 +123,7 @@
             layerToToggle: searchLayer,
             threshold: 0.5,
             showResultFct: function(feature, container) {
-                props = feature.properties;
+                var props = feature.properties;
                 var name = L.DomUtil.create('b', null, container);
                 name.innerHTML = props.LNAME;
                 container.appendChild(L.DomUtil.create('br', null, container));
@@ -158,6 +151,7 @@
 </script>
 </body>
 </html>
+
 
 
 
