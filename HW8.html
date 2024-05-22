@@ -20,7 +20,7 @@
     <script src="https://code.jquery.com/jquery-1.9.1.min.js"></script>
     <script src="https://code.jquery.com/ui/1.9.2/jquery-ui.js"></script>
     <script src="https://dsps.lib.uiowa.edu/placing/public/jqueryUiTouchPunch-0.2.2/jquery.ui.touch-punch.min.js"></script>
-    <script src="https://chrischen0327.github.io/data_lab8.js"></script>
+    <script src="https://chrischen0327.github.io/briton_data_lab8.geojson"></script>
     
     <script>
         var basemap = L.tileLayer('https://server.arcgisonline.com/ArcGIS/rest/services/World_Shaded_Relief/MapServer/tile/{z}/{y}/{x}', {
@@ -72,7 +72,7 @@
         var onEachFeature = function(feature, layer) {
             if (feature.properties) {
                 var prop = feature.properties;
-                var popup = '<h3>${feature.properties.name}</h3>'
+                var popup = '<h3>${name}</h3>'
                     '<br><strong>Latitude:</strong> ${feature.geometry.coordinates[1]}'
                     '<br><strong>Longitude:</strong> ${feature.geometry.coordinates[0]}'
                     '<br><strong>Date:</strong> ${feature.properties.time}'
