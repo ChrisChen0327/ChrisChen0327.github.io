@@ -29,8 +29,8 @@
     });
      
     var map = L.map('map', {
-        center: [41.259944, -95.937057],
-        zoom: 15,
+        center: [41.8781, -93.0977], // Centering on Iowa
+        zoom: 8,
         layers: [basemap] 
     });
 
@@ -39,14 +39,10 @@
         if (feature.properties) {
             var prop = feature.properties;
             // make a cool little html popup with properties
-            var popup = '<h3>' + prop['FNAME'] + ' ' + prop['LNAME'] + '</h3>' +
-                        '<strong>Race/Gender: </strong>' + prop['RACE'] + ' ' + prop['GENDER'] + '<br>' +
-                        '<strong>Occupation: </strong>' + prop['OCCUPATION'] + '<br>' +
-                        '<strong>Age: </strong>' + prop['AGE'] + '<br>' +
-                        '<strong>Family Estate: $</strong>' + prop['PERSREAL'] + '<br>' +
-                        '<strong>Fam. Real Estate: $</strong>' + prop['FAMREAL'] + '<br>' +
-                        '<strong>Address: </strong>' + prop['ADDRESS'] + '<br>' +
-                        '<br><i>details from Census Bureau and city directories</i>';
+            var popup = '<h3>' + prop['name'] + '</h3>' +
+                        '<strong>Latitude: </strong>' + prop['latitude'] + '<br>' +
+                        '<strong>Longitude: </strong>' + prop['longitude'] + '<br>' +
+                        '<strong>Date: </strong>' + prop['time'];
           
             feature.layer = layer;
             layer.bindPopup(popup, {maxWidth: "auto"});
@@ -116,7 +112,7 @@
         var searchOptions = {
             position: 'topleft',
             title: 'Search',
-            placeholder: 'Example: John Smith',
+            placeholder: 'Example: Montezuma Opera House',
             maxResultLength: 10,
             caseSensitive: false,
             showInvisibleFeatures: true,
@@ -125,21 +121,23 @@
             showResultFct: function(feature, container) {
                 var props = feature.properties;
                 var name = L.DomUtil.create('b', null, container);
-                name.innerHTML = props.LNAME;
+                name.innerHTML = props.name;
                 container.appendChild(L.DomUtil.create('br', null, container));
 
-                var cat = props.LNAME ? props.FNAME : props.OCCUPATION,
-                    info = cat;
+                var info = props.name + ' (' + props.time + ')';
                 container.appendChild(document.createTextNode(info));
             }
         };
 
         var searchControl = L.control.fuseSearch(searchOptions);
         map.addControl(searchControl);
-        searchControl.indexFeatures(data, ['LNAME']);
+
+        // Ensure the features are correctly indexed
+        var features = data.features || [];
+        searchControl.indexFeatures(features, ['name', 'time']);
 
         var overlays = {
-            "People": firstLayer
+            "Opera Houses": firstLayer
         };
         
         var baseMaps = {
@@ -151,6 +149,9 @@
 </script>
 </body>
 </html>
+
+
+
 
 
 
