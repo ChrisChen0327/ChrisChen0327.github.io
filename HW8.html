@@ -34,7 +34,6 @@
         layers: [basemap] 
     });
 
-    // onEachFeature generate a popup for each location
     var onEachFeature = function(feature, layer) {
         if (feature.properties) {
             var prop = feature.properties;
@@ -132,7 +131,6 @@
         var searchControl = L.control.fuseSearch(searchOptions);
         map.addControl(searchControl);
 
-        // Ensure the features are correctly indexed
         var features = data.features || [];
         searchControl.indexFeatures(features, ['name', 'time']);
 
